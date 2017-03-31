@@ -197,6 +197,9 @@ public class SedaGeneratorUnit {
 			TRACESWRITER.error(ERROR_WAITING_ARGUMENTS_1 + TASK_NB_ARG + ERROR_WAITING_ARGUMENTS_2 +
                     DEFAULT_NB_ARG + ERROR_WAITING_ARGUMENTS_3 +
                     args.length + ERROR_WAITING_ARGUMENTS_4);
+			System.err.println(ERROR_WAITING_ARGUMENTS_1 + TASK_NB_ARG + ERROR_WAITING_ARGUMENTS_2 +
+                    DEFAULT_NB_ARG + ERROR_WAITING_ARGUMENTS_3 +
+                    args.length + ERROR_WAITING_ARGUMENTS_4);
 			System.exit(1);
 		}
 		System.exit(0);
@@ -232,6 +235,7 @@ public class SedaGeneratorUnit {
 		}
 
 		if (ssg.getSedaSummaryRngGeneratorDao() == null) {
+			System.err.println(ERROR_NEITHER_CONFIG_NOR_BDD);
 			throw new TechnicalException(ERROR_NEITHER_CONFIG_NOR_BDD);
 		} else {
 			try {
@@ -253,6 +257,7 @@ public class SedaGeneratorUnit {
 				System.exit(2);
 			}
 		} catch (TechnicalException e) {
+			System.err.println(ERROR_GENERATING_1 + summaryPath + ERROR_GENERATING_2 + summaryPathError);
 			throw new TechnicalException(ERROR_GENERATING_1 + summaryPath + ERROR_GENERATING_2 + summaryPathError, e);
 		}
 

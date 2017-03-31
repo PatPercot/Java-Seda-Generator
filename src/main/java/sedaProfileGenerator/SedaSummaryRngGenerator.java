@@ -395,9 +395,13 @@ public class SedaSummaryRngGenerator extends AbstractSedaSummaryGenerator {
 			} else {
 				// On pourrait tracer l'erreur seulement quand currentPass = 2
 				if (grammarNode == null) {
+					System.err.println(ERROR_NODE_NOT_FOUND_1 + "rng:grammar" + ERROR_NODE_NOT_FOUND_2
+							+ sae.getProfileFile() + ERROR_NODE_NOT_FOUND_3);
 					throw new TechnicalException(ERROR_NODE_NOT_FOUND_1 + "rng:grammar" + ERROR_NODE_NOT_FOUND_2
 							+ sae.getProfileFile() + ERROR_NODE_NOT_FOUND_3);
 				} else {
+					System.err.println(ERROR_NODE_NOT_FOUND_1 + "rng:grammar/rng:start/rng:ref"
+							+ ERROR_NODE_NOT_FOUND_2 + sae.getProfileFile() + ERROR_NODE_NOT_FOUND_3);
 					throw new TechnicalException(ERROR_NODE_NOT_FOUND_1 + "rng:grammar/rng:start/rng:ref"
 							+ ERROR_NODE_NOT_FOUND_2 + sae.getProfileFile() + ERROR_NODE_NOT_FOUND_3);
 				}
@@ -1711,6 +1715,7 @@ public class SedaSummaryRngGenerator extends AbstractSedaSummaryGenerator {
 			} // On essaie plusieurs patterns
 		}
 		if (StringUtils.isEmpty(dateStringOut)) {
+			System.err.println(ERROR_PARSE_DATE);
 			throw new TechnicalException(ERROR_PARSE_DATE);
 		}
 		return dateStringOut;
@@ -1923,6 +1928,7 @@ public class SedaSummaryRngGenerator extends AbstractSedaSummaryGenerator {
 		try {
 			transfo.transform(source, resultat);
 		} catch (TransformerException e) {
+			System.err.println(ERROR_TRANSFORMATION_FAILED + e.getLocalizedMessage());
 			throw new TechnicalException(ERROR_TRANSFORMATION_FAILED + e.getLocalizedMessage(), e);
 		}
 
@@ -1932,16 +1938,20 @@ public class SedaSummaryRngGenerator extends AbstractSedaSummaryGenerator {
 			if (newFileExpected.exists()) {
 				boolean deleteSucceded = newFileExpected.delete();
 				if (!deleteSucceded) {
+					System.err.println(ERROR_DELETE + newFileExpected.getAbsolutePath());
 					throw new TechnicalException(ERROR_DELETE + newFileExpected.getAbsolutePath());
 				}
 			}
 			boolean renameSucceded = tempFile.renameTo(new File(nomFichier));
 			if (!renameSucceded) {
+				System.err.println(ERROR_RENAME_1 + tempFile.getAbsolutePath() + ERROR_RENAME_2 + nomFichier);
 				throw new TechnicalException(ERROR_RENAME_1 + tempFile.getAbsolutePath() + ERROR_RENAME_2 + nomFichier);
 			}
 		} else {
+			System.err.println(ERROR_TEMP_DOESNT_EXIST_1 + tempFile.getAbsolutePath()
+			+ ERROR_TEMP_DOESNT_EXIST_2);
 			throw new TechnicalException(ERROR_TEMP_DOESNT_EXIST_1 + tempFile.getAbsolutePath()
-					+ ERROR_TEMP_DOESNT_EXIST_2);
+			+ ERROR_TEMP_DOESNT_EXIST_2);
 		}
 	}
 

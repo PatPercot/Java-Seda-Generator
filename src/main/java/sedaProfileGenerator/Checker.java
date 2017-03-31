@@ -19,6 +19,7 @@ public final class Checker {
 
 	public static void checkString(String arg) {
 		if (StringUtils.isEmpty(arg)) {
+			System.err.println("Un paramètre est nul ou vide.");
 			throw new IllegalArgumentException("Un paramètre est nul ou vide.");
 		}
 	}
@@ -27,9 +28,11 @@ public final class Checker {
 		checkString(filename);
 		File file = new File(filename);
 		if (!file.exists()) {
+			System.err.println("Le fichier " + filename + " n'existe pas.");
 			throw new IllegalArgumentException("Le fichier " + filename + " n'existe pas.");
 		}
 		if (!file.canRead()) {
+			System.err.println("Le fichier " + filename + " est illisible.");
 			throw new IllegalArgumentException("Le fichier " + filename + " est illisible.");
 		}
 	}
@@ -38,9 +41,11 @@ public final class Checker {
 		checkString(filename);
 		File file = new File(filename);
 		if (!file.exists()) {
+			System.err.println(filename + " n'existe pas.");
 			throw new IllegalArgumentException(filename + " n'existe pas.");
 		}
 		if (!file.isDirectory()) {
+			System.err.println(filename + " n'est pas un dossier.");
 			throw new IllegalArgumentException(filename + " n'est pas un dossier.");
 		}
 	}
@@ -50,6 +55,7 @@ public final class Checker {
 		Pattern p = Pattern.compile(DB_URL_PATTERN);
 		Matcher m = p.matcher(url);
 		if (!m.matches()) {
+			System.err.println(url + " n'est pas de la forme : " + DB_URL_PATTERN);
 			throw new IllegalArgumentException(url + " n'est pas de la forme : " + DB_URL_PATTERN);
 		}
 	}
@@ -66,6 +72,7 @@ public final class Checker {
 	public static void checkBoolean(String booleanTest) {
 		
 		if(!(StringUtils.equals(BOOLEAN_FALSE, booleanTest) || StringUtils.equals(BOOLEAN_TRUE, booleanTest))) {
+			System.err.println(ERROR_BOOLEAN);
 			throw new IllegalArgumentException(ERROR_BOOLEAN);
 		}
 	}
